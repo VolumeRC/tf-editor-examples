@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Web-based transfer function editor example</title>
+
+    <!-- Load the X3DOM Framework -->
+    <link rel="stylesheet" type="text/css" href="https://x3dom.org/download/dev/x3dom.css" />
+    <script type="text/javascript" src="https://x3dom.org/download/dev/x3dom-full.js"></script>
+
+    <!-- Load polymer elements -->
+    <script src="https://cdn.rawgit.com/Download/polymer-cdn/1.7.0.2/lib/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="https://cdn.rawgit.com/Download/polymer-cdn/1.7.0.2/lib/polymer/polymer.html">
+    <link rel="import" href="https://cdn.rawgit.com/VolumeRC/tf-editor/v0.1.0/dist/tf-editor.html">
+    <style>
+    .container {
+      display: flex;
+      align-items: center;
+      width: 500px;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div>
+        <X3D xmlns='http://www.web3d.org/specifications/x3d-namespace' showStat='false' showLog='false' width='400px' height='400px'>
+          <Scene>
+              <Background skyColor='1.0 1.0 1.0'></Background>
+              <Viewpoint description='Default' zNear='0.0001' zFar='100'></Viewpoint>
+              <Transform>
+                  <VolumeData id='volume3' dimensions='4.0 4.0 4.0'>
+                      <ImageTextureAtlas containerField='voxels' url='aorta4096.png' numberOfSlices='96' slicesOverX='10' slicesOverY='10'></ImageTextureAtlas>
+                      <OpacityMapVolumeStyle lightFactor='1.2' opacityFactor='15.0'>
+                          <ImageTexture containerField='transferFunction'>
+                          </ImageTexture>
+                      </OpacityMapVolumeStyle>
+                  </VolumeData>
+              </Transform>
+          </Scene>
+        </X3D>
+    </div>
+    <div style="margin-left: 10px">
+      <tf-editor id="tf" width="400" x3dom-selector="#volume3"></tf-editor>
+    </div>
+    <script>
+      x3dom.reload();
+    </script>
+  </div>
+  </body>
+</html>
